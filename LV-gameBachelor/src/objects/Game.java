@@ -23,10 +23,10 @@ public class Game {
 			if(p.getWin() != 0)
 				continue;
 
-			// Tant que le joueur n'a toujours pas gagnÃ©.
+			// Tant que le joueur n'a toujours pas gagné.
 			do {
 
-				// On lance le dÃ©
+				// On lance le dé
 				dice = random.nextInt(6) + 1;
 				currentPosition = currentPosition + dice;
 
