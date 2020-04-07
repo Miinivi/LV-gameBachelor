@@ -10,6 +10,8 @@
 >Il y a un bouton qui permet au joueur de lancer le dé qui s’affiche au-dessus. 
 >Quand un joueur gagné le bouton pour lancer le dé est désactivé et un message indiquant qui à gagner s’affiche.
 
+*Subtilité* : Ce jeu se présente sous le format d'un plateau de 30 cases, dont 3 qui sont des pièges (à valeur fixe: 6, 14, et 23). Ces derniers font reculer les joueurs d'une case s'ils tombent dessus.
+
 **Pour lancer l’application il faut run tout le projet (LV-gameBachelor).**
 >Au lancement, les joueurs rentrent leurs pseudos, puis clic sur le bouton « Lancer le jeu ».
 >Les deux joueurs sont sur la première case du plateau. 
