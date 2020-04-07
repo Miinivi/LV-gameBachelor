@@ -15,6 +15,10 @@ public class Game {
 	// Players
 	private Player playerOne = new Player("one");
 	private Player playerTwo = new Player("two");
+	// Trap position
+//	private Integer trap1Pos = 6;
+//	private Integer trap2Pos = 23;
+//	private Integer trap3Pos = 14;
 	// The players list
 	List<Player> playerList = new ArrayList<Player>();
 	// Dice
@@ -30,6 +34,18 @@ public class Game {
 		playerList.add(playerOne);
 		playerList.add(playerTwo);
 		return playerList;
+	}
+
+	public Integer getTrap1Pos() {
+		return 6;
+	}
+
+	public Integer getTrap2Pos() {
+		return 23;
+	}
+
+	public Integer getTrap3Pos() {
+		return 14;
 	}
 
 	/**

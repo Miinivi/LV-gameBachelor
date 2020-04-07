@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javafx.geometry.Insets;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -35,14 +36,20 @@ public class GameContentApp extends BorderPane {
 	private HBox btnHBox = new HBox(launchPlOneBtn, launchPlTwoBtn);
 	// Game
 	private static Game game = new Game();
+	// Trap
+	private Label trapMessage = new Label("Oh zut ! Quelle malchance, tu es tombé dans un piège. Tu recules d'une case.");
+	private HBox trapHBox = new HBox(trapMessage);
 	// Values
 	private Label oneWinning = new Label("Le joueur Un gagne !");
 	private Label twoWinning = new Label("Le joueur Deux gagne !");
 	private Integer previousVBox = 1;
 	private Map<Integer, VBox> vboxMapList = new HashMap();
 	public static List<Player> playerList = game.getPlayerList();
+	private Label headerLabel = new Label("Bienvenue au jeu 'Sois le plus rapide !' Un jeu de chance qui saura émoustiller même pépé et mémé ! Mais prends garde. Des pièges sont cachés. \n");
 
 	public GameContentApp() {
+		setTop(headerLabel);
+		
 		// Creating dice appearance
 		dice.getChildren().add(new Label("1"));
 		// Because css doesn't work, we had to set style that way
@@ -76,63 +83,59 @@ public class GameContentApp extends BorderPane {
 		launchPlTwoBtn.visibleProperty().set(false);
 		launchPlTwoBtn.managedProperty().bind(launchPlTwoBtn.visibleProperty());
 
-//		// Set the players position at first tile
-//		changingPlPositionInVBox(previousVBox);
-
 		// Launch dice button
-		launchPlOneBtn.setOnAction(e -> {
-			previousVBox = playerList.get(0).getPosition();
+		launchPlOneBtn.setOnAction(actionButton(0, launchPlOneBtn, launchPlTwoBtn));
+		launchPlTwoBtn.setOnAction(actionButton(1, launchPlTwoBtn, launchPlOneBtn));
 
-			// Game playing
-			game.playerTurn(playerList.get(0));
-
-			// Set position on HMI
-			if (playerList.get(0).getPosition() < 30) {
-				changingPlPositionInVBox(previousVBox);
-			} else {
-				winBox.getChildren().add(oneWinning);
-				playerList.get(0).setPosition(30);
-				changingPlPositionInVBox(previousVBox);
-				launchPlOneBtn.setDisable(true);
-				launchPlTwoBtn.setDisable(true);
-			}
-
-			// Graphic part
-			launchPlOneBtn.visibleProperty().set(false);
-			launchPlOneBtn.managedProperty().bind(launchPlOneBtn.visibleProperty());
-			// Display button 2
-			launchPlTwoBtn.visibleProperty().set(true);
-			launchPlTwoBtn.managedProperty().bind(launchPlTwoBtn.visibleProperty());
-		});
-		launchPlTwoBtn.setOnAction(e -> {
-			previousVBox = playerList.get(1).getPosition();
-
-			// Game playing
-			game.playerTurn(playerList.get(1));
-
-			// Set position on HMI
-			if (playerList.get(1).getPosition() < 30) {
-				changingPlPositionInVBox(previousVBox);
-			} else {
-				winBox.getChildren().add(twoWinning);
-				playerList.get(1).setPosition(30);
-				changingPlPositionInVBox(previousVBox);
-				launchPlOneBtn.setDisable(true);
-				launchPlTwoBtn.setDisable(true);
-			}
-
-			// Graphic part
-			launchPlTwoBtn.visibleProperty().set(false);
-			launchPlTwoBtn.managedProperty().bind(launchPlTwoBtn.visibleProperty());
-			// Display button 1
-			launchPlOneBtn.visibleProperty().set(true);
-			launchPlOneBtn.managedProperty().bind(launchPlOneBtn.visibleProperty());
-		});
-
-		VBox content = new VBox(hbox1, hbox2, hbox3, diceBox, winBox, btnHBox);
+		trapHBox.visibleProperty().set(false);
+		trapHBox.managedProperty().bind(trapHBox.visibleProperty());
+		trapHBox.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+		
+		VBox content = new VBox(hbox1, hbox2, hbox3, diceBox, trapHBox, winBox, btnHBox);
 		setCenter(content);
 	}
 
+	private EventHandler<ActionEvent> actionButton(Integer idPlayer, Button btnToDisappear, Button btnToAppear) {
+		return e -> {
+			previousVBox = playerList.get(idPlayer).getPosition();
+
+			// Game playing
+			game.playerTurn(playerList.get(idPlayer));
+
+			// Set position on HMI
+			if (playerList.get(idPlayer).getPosition() < 30) {
+				changingPlPositionInVBox(previousVBox);
+			} else {
+				winBox.getChildren().add(oneWinning);
+				playerList.get(idPlayer).setPosition(30);
+				changingPlPositionInVBox(previousVBox);
+				launchPlOneBtn.setDisable(true);
+				launchPlTwoBtn.setDisable(true);
+			}
+			
+			// If the player is on a trap tile
+			if (playerList.get(idPlayer).getPosition() == game.getTrap1Pos() //
+				|| playerList.get(idPlayer).getPosition() == game.getTrap2Pos() //
+				|| playerList.get(idPlayer).getPosition() == game.getTrap3Pos()) {
+				previousVBox = playerList.get(idPlayer).getPosition();
+				playerList.get(idPlayer).setPosition(playerList.get(idPlayer).getPosition()-1);
+				changingPlPositionInVBox(previousVBox);
+				trapHBox.visibleProperty().set(true);
+				trapHBox.managedProperty().bind(trapHBox.visibleProperty());
+			} else {
+				trapHBox.visibleProperty().set(false);
+				trapHBox.managedProperty().bind(trapHBox.visibleProperty());
+			}
+
+			// Graphic part
+			btnToDisappear.visibleProperty().set(false);
+			btnToDisappear.managedProperty().bind(btnToDisappear.visibleProperty());
+			// Display button 2
+			btnToAppear.visibleProperty().set(true);
+			btnToAppear.managedProperty().bind(btnToAppear.visibleProperty());
+		};
+	}
+	
 	public void changingPlPositionInVBox(Integer previousVBox) {
 		Integer position = 0;
 		// Check if no one on the previous box
