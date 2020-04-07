@@ -1,6 +1,6 @@
 # LV-gameBachelor
 
-##Projet « Soit le plus rapide » en JAVA :
+## Projet « Soit le plus rapide » en JAVA :
 
 >Le but de ce jeu est d’arriver le premier sur la dernière case du plateau. 
 >Ce jeu se joue à deux joueurs ; qui, à tour de rôle lance un dé pour avancer sur les cases.
