@@ -20,10 +20,10 @@
 >Puis c’est au tour du Joueur 2 et ainsi de suite jusqu’à ce qu’un des joueurs arrive sur la dernière case.
 
 **Axes d'amélioration**
->Ajouter les labels de LaunchDiceStrings.java à la diceBox
->Ajouter une variable aléatoire pour les pièges
->Ajouter un bouton replay
->Ajouter une feuille de style pour styliser le jeu
+>Ajouter les labels de LaunchDiceStrings.java à la diceBox.
+>Ajouter une variable aléatoire pour les pièges.
+>Ajouter un bouton replay.
+>Ajouter une feuille de style pour styliser le jeu.
 
 **Attention l’utilisation du framework JAVAFX est utilisé dans ce projet.**
 Il a été développé sur Eclispe IDE et fonctionne.
