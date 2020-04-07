@@ -9,7 +9,7 @@ public class Player {
 	private ImageView image;
 	 
 	public Player(String name, ImageView image) {
-		position = 0;
+		position = 1;
 		this.name = name;
 		this.image = image;
 	}
@@ -17,7 +17,10 @@ public class Player {
 	public Player(String name) {
 		position = 1;
 		this.name = name;
-		this.image = image;
+	}
+	
+	public Player() {
+		position = 1;
 	}
 
 	public Integer getPosition() {

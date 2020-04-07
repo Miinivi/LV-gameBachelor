@@ -10,32 +10,46 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import objects.Game;
 
 /**
  *
- * @author Lam & Rodrigues
+ * @author Lam Calem
  */
 public class LVGameBachelor extends Application {
-    
-    @Override
-    public void start(Stage primaryStage) {
-        StackPane root = new StackPane();
-        BorderPane gameContent = new GameContentApp();
-        root.getChildren().add(gameContent);
-        
-        Scene scene = new Scene(root, 800, 300);
-        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
-    
+	@Override
+	public void start(Stage primaryStage) {
+		StackPane root = new StackPane();
+		BorderPane gameContent = new GameContentApp();
+		BorderPane launchContent = new LaunchGameContentApp();
+		root.getChildren().add(launchContent);
+		LaunchGameContentApp.changeContentBtn.setOnAction(e -> {
+			if (!LaunchGameContentApp.tfPlayerOneName.getText().isEmpty() //
+					&& !LaunchGameContentApp.tfPlayerTwoName.getText().isEmpty()) {
+				Game.playerOne.setName(LaunchGameContentApp.tfPlayerOneName.getText());
+				Game.playerTwo.setName(LaunchGameContentApp.tfPlayerTwoName.getText());
+				root.getChildren().clear();
+				root.getChildren().add(gameContent);
+			} else {
+				LaunchGameContentApp.errorHBox.visibleProperty().set(true);
+				LaunchGameContentApp.errorHBox.managedProperty().bind(LaunchGameContentApp.errorHBox.visibleProperty());
+			}
+		});
+
+		Scene scene = new Scene(root, 800, 300);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+		primaryStage.setTitle("Sois le plus rapide !");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 }

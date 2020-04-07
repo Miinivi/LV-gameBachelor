@@ -28,6 +28,7 @@ public class GameContentApp extends BorderPane {
 	private HBox winBox = new HBox();
 	// Dice
 	public static HBox dice = new HBox();
+	private HBox diceBox = new HBox(new Label("Le dé est lancé ! "), dice);
 	// Button
 	public static Button launchPlOneBtn = new Button("Lancer en tant que joueur 1");
 	public static Button launchPlTwoBtn = new Button("Lancer en tant que joueur 2");
@@ -50,7 +51,9 @@ public class GameContentApp extends BorderPane {
 		dice.setMaxSize(10d, 17d);
 		dice.setMinSize(10d, 17d);
 		dice.getStyleClass().add("dice");
-		
+		diceBox.visibleProperty().set(false);
+		diceBox.managedProperty().bind(diceBox.visibleProperty());
+
 		// Game board
 		for(int i = 1; i <= 30; i++)
 		{
@@ -66,10 +69,16 @@ public class GameContentApp extends BorderPane {
 			}
 		}
 		
-		launchPlTwoBtn.visibleProperty().set(false);
-		launchPlTwoBtn.managedProperty().bind(launchPlOneBtn.visibleProperty());
-		
+		// Set the players position at first tile
 		changingPlPositionInVBox(previousVBox);
+		
+		launchPlOneBtn.setOnMouseClicked(e -> {
+			diceBox.visibleProperty().set(true);
+			diceBox.managedProperty().bind(diceBox.visibleProperty());
+		});
+		
+		launchPlTwoBtn.visibleProperty().set(false);
+		launchPlTwoBtn.managedProperty().bind(launchPlTwoBtn.visibleProperty());
 		
 		// Launch dice button
 		launchPlOneBtn.setOnAction(e -> {
@@ -121,11 +130,8 @@ public class GameContentApp extends BorderPane {
 			launchPlOneBtn.managedProperty().bind(launchPlOneBtn.visibleProperty());
 		});
 		
-		VBox content = new VBox(hbox1, hbox2, hbox3, dice, winBox, btnHBox);
-		content.setPadding(new Insets(20, 20, 20, 20));;
-		setCenter(content);
-		
-		setMargin(content, new Insets(10d));
+		VBox content = new VBox(hbox1, hbox2, hbox3, diceBox, winBox, btnHBox);
+		setCenter(content);		
 	}
 
 	private void changingPlPositionInVBox(Integer previousVBox) {
