@@ -11,7 +11,7 @@
 >Quand un joueur gagné le bouton pour lancer le dé est désactivé et un message indiquant qui à gagner s’affiche.
 
 **Pour lancer l’application il faut run tout le projet (LV-gameBachelor).**
->Au lancement, les joueurs rentre leurs pseudo, puis clic sur le bouton « Lancer le jeu ».
+>Au lancement, les joueurs rentrent leurs pseudos, puis clic sur le bouton « Lancer le jeu ».
 >Les deux joueurs sont sur la première case du plateau. 
 >Il faut ensuite appuyer sur le bouton « Lancer en tant que joueur 1 ». 
 >Le dé s’affiche au-dessus du bouton en indiquant le nombre de case à faire. Le joueur se déplace automatiquement. 
