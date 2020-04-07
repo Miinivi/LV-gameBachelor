@@ -13,8 +13,8 @@ import lv.gamebachelor.GameContentApp;
 
 public class Game {
 	// Players
-	public static Player playerOne = new Player();
-	public static Player playerTwo = new Player();
+	private Player playerOne = new Player("one");
+	private Player playerTwo = new Player("two");
 	// The players list
 	List<Player> playerList = new ArrayList<Player>();
 	// Dice

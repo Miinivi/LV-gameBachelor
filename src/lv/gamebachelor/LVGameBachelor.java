@@ -17,6 +17,8 @@ import objects.Game;
  * @author Lam Calem
  */
 public class LVGameBachelor extends Application {
+	public static String playerOneName;
+	public static String playerTwoName;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -27,8 +29,12 @@ public class LVGameBachelor extends Application {
 		LaunchGameContentApp.changeContentBtn.setOnAction(e -> {
 			if (!LaunchGameContentApp.tfPlayerOneName.getText().isEmpty() //
 					&& !LaunchGameContentApp.tfPlayerTwoName.getText().isEmpty()) {
-				Game.playerOne.setName(LaunchGameContentApp.tfPlayerOneName.getText());
-				Game.playerTwo.setName(LaunchGameContentApp.tfPlayerTwoName.getText());
+				playerOneName = LaunchGameContentApp.tfPlayerOneName.getText().toString();
+				playerTwoName = LaunchGameContentApp.tfPlayerTwoName.getText().toString();
+				GameContentApp.playerList.get(0).setName(playerOneName);
+				GameContentApp.playerList.get(1).setName(playerTwoName);
+				// Set the players position at first tile
+				((GameContentApp) gameContent).changingPlPositionInVBox(1);
 				root.getChildren().clear();
 				root.getChildren().add(gameContent);
 			} else {

@@ -33,15 +33,15 @@ public class GameContentApp extends BorderPane {
 	public static Button launchPlOneBtn = new Button("Lancer en tant que joueur 1");
 	public static Button launchPlTwoBtn = new Button("Lancer en tant que joueur 2");
 	private HBox btnHBox = new HBox(launchPlOneBtn, launchPlTwoBtn);
-	// Game 
-	private Game game = new Game();
+	// Game
+	private static Game game = new Game();
 	// Values
 	private Label oneWinning = new Label("Le joueur Un gagne !");
 	private Label twoWinning = new Label("Le joueur Deux gagne !");
 	private Integer previousVBox = 1;
 	private Map<Integer, VBox> vboxMapList = new HashMap();
-	private List<Player> playerList = game.getPlayerList();
-	
+	public static List<Player> playerList = game.getPlayerList();
+
 	public GameContentApp() {
 		// Creating dice appearance
 		dice.getChildren().add(new Label("1"));
@@ -54,41 +54,40 @@ public class GameContentApp extends BorderPane {
 		diceBox.visibleProperty().set(false);
 		diceBox.managedProperty().bind(diceBox.visibleProperty());
 
-		// Game board
-		for(int i = 1; i <= 30; i++)
-		{
-			vboxMapList.put(i, createVBoxTile(i));
-			if (i < 11) {
-				hbox1.getChildren().add(vboxMapList.get(i));				
-			}
-			if (i < 21 && i > 10) {
-				hbox2.getChildren().add(vboxMapList.get(i));				
-			}
-			if (i < 31 && i > 20) {
-				hbox3.getChildren().add(vboxMapList.get(i));				
-			}
-		}
-		
-		// Set the players position at first tile
-		changingPlPositionInVBox(previousVBox);
-		
 		launchPlOneBtn.setOnMouseClicked(e -> {
 			diceBox.visibleProperty().set(true);
 			diceBox.managedProperty().bind(diceBox.visibleProperty());
 		});
-		
+
+		// Game board
+		for (int i = 1; i <= 30; i++) {
+			vboxMapList.put(i, createVBoxTile(i));
+			if (i < 11) {
+				hbox1.getChildren().add(vboxMapList.get(i));
+			}
+			if (i < 21 && i > 10) {
+				hbox2.getChildren().add(vboxMapList.get(i));
+			}
+			if (i < 31 && i > 20) {
+				hbox3.getChildren().add(vboxMapList.get(i));
+			}
+		}
+
 		launchPlTwoBtn.visibleProperty().set(false);
 		launchPlTwoBtn.managedProperty().bind(launchPlTwoBtn.visibleProperty());
-		
+
+//		// Set the players position at first tile
+//		changingPlPositionInVBox(previousVBox);
+
 		// Launch dice button
 		launchPlOneBtn.setOnAction(e -> {
 			previousVBox = playerList.get(0).getPosition();
-			
-			// Game playing 
+
+			// Game playing
 			game.playerTurn(playerList.get(0));
-			
+
 			// Set position on HMI
-			if (playerList.get(0).getPosition() < 30) {				
+			if (playerList.get(0).getPosition() < 30) {
 				changingPlPositionInVBox(previousVBox);
 			} else {
 				winBox.getChildren().add(oneWinning);
@@ -97,7 +96,7 @@ public class GameContentApp extends BorderPane {
 				launchPlOneBtn.setDisable(true);
 				launchPlTwoBtn.setDisable(true);
 			}
-			
+
 			// Graphic part
 			launchPlOneBtn.visibleProperty().set(false);
 			launchPlOneBtn.managedProperty().bind(launchPlOneBtn.visibleProperty());
@@ -107,10 +106,10 @@ public class GameContentApp extends BorderPane {
 		});
 		launchPlTwoBtn.setOnAction(e -> {
 			previousVBox = playerList.get(1).getPosition();
-			
+
 			// Game playing
 			game.playerTurn(playerList.get(1));
-			
+
 			// Set position on HMI
 			if (playerList.get(1).getPosition() < 30) {
 				changingPlPositionInVBox(previousVBox);
@@ -121,23 +120,23 @@ public class GameContentApp extends BorderPane {
 				launchPlOneBtn.setDisable(true);
 				launchPlTwoBtn.setDisable(true);
 			}
-			
+
 			// Graphic part
 			launchPlTwoBtn.visibleProperty().set(false);
-			launchPlTwoBtn.managedProperty().bind(launchPlTwoBtn.visibleProperty());			
+			launchPlTwoBtn.managedProperty().bind(launchPlTwoBtn.visibleProperty());
 			// Display button 1
 			launchPlOneBtn.visibleProperty().set(true);
 			launchPlOneBtn.managedProperty().bind(launchPlOneBtn.visibleProperty());
 		});
-		
+
 		VBox content = new VBox(hbox1, hbox2, hbox3, diceBox, winBox, btnHBox);
-		setCenter(content);		
+		setCenter(content);
 	}
 
-	private void changingPlPositionInVBox(Integer previousVBox) {
+	public void changingPlPositionInVBox(Integer previousVBox) {
 		Integer position = 0;
 		// Check if no one on the previous box
-		if (playerList.get(0).getPosition() != previousVBox && playerList.get(1).getPosition() != previousVBox) {			
+		if (playerList.get(0).getPosition() != previousVBox && playerList.get(1).getPosition() != previousVBox) {
 			vboxMapList.get(previousVBox).getChildren().clear();
 			vboxMapList.get(previousVBox).getChildren().add(new Label(previousVBox.toString()));
 		}
@@ -145,16 +144,19 @@ public class GameContentApp extends BorderPane {
 			// Setting the player one position
 			position = playerList.get(0).getPosition();
 			vboxMapList.get(position).getChildren().clear();
-			vboxMapList.get(position).getChildren().addAll(new Label(position.toString()), new Label(playerList.get(0).getName()));			
+			vboxMapList.get(position).getChildren().addAll(new Label(position.toString()),
+					new Label(playerList.get(0).getName()));
 			// Setting the player two position
 			position = playerList.get(1).getPosition();
 			vboxMapList.get(position).getChildren().clear();
-			vboxMapList.get(position).getChildren().addAll(new Label(position.toString()), new Label(playerList.get(1).getName()));	
-		} else { 
+			vboxMapList.get(position).getChildren().addAll(new Label(position.toString()),
+					new Label(playerList.get(1).getName()));
+		} else {
 			// Both on the same position
 			position = playerList.get(0).getPosition();
 			vboxMapList.get(position).getChildren().clear();
-			vboxMapList.get(position).getChildren().addAll(new Label(position.toString()), new Label(playerList.get(0).getName()), new Label(playerList.get(1).getName()));	
+			vboxMapList.get(position).getChildren().addAll(new Label(position.toString()),
+					new Label(playerList.get(0).getName()), new Label(playerList.get(1).getName()));
 		}
 	}
 
