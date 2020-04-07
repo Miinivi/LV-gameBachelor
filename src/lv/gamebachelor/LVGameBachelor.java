@@ -23,7 +23,8 @@ public class LVGameBachelor extends Application {
         BorderPane gameContent = new GameContentApp();
         root.getChildren().add(gameContent);
         
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 800, 300);
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);

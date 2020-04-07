@@ -1,40 +1,46 @@
 package objects;
 
+import javafx.scene.image.ImageView;
+
 public class Player {
 	
-	 private Integer startingPosition;
-	 private String pseudo;
-	 private int win ;
+	private String name;
+	private Integer position;
+	private ImageView image;
 	 
-	public Player(Integer startingPosition, String pseudo, int win) {
-		super();
-		this.startingPosition = 0;
-		this.pseudo = pseudo;
-		this.win = 0;
-	}
-
-	public Integer getStartingPosition() {
-		return startingPosition;
-	}
-
-	public void setStartingPosition(Integer startingPosition) {
-		this.startingPosition = startingPosition;
-	}
-
-	public String getPseudo() {
-		return pseudo;
-	}
-
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
-	}
-
-	public int getWin() {
-		return win;
-	}
-
-	public void setWin(int win) {
-		this.win = win;
+	public Player(String name, ImageView image) {
+		position = 0;
+		this.name = name;
+		this.image = image;
 	}
 	
+	public Player(String name) {
+		position = 1;
+		this.name = name;
+		this.image = image;
+	}
+
+	public Integer getPosition() {
+		return position;
+	}
+
+	public void setPosition(Integer startingPosition) {
+		this.position = startingPosition;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public ImageView getImage() {
+		return image;
+	}
+
+	public void setImage(ImageView image) {
+		this.image = image;
+	}
 }
