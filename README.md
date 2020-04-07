@@ -25,3 +25,9 @@ Il a été développé sur Eclispe IDE et fonctionne.
 Répartition des tâches
 * Visuel : Véniane 
 * Fonctionnel : Lucie 
+
+** Axes d'amélioration**
+* Ajouter les labels de LaunchDiceStrings.java à la diceBox.
+* Ajouter une variable aléatoire pour les pièges.
+* Ajouter un bouton replay.
+* Ajouter une feuille de style pour styliser le jeu.
