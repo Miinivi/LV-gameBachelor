@@ -26,7 +26,7 @@ Répartition des tâches
 * Visuel : Véniane 
 * Fonctionnel : Lucie 
 
-** Axes d'amélioration**
+**Axes d'amélioration**
 * Ajouter les labels de LaunchDiceStrings.java à la diceBox.
 * Ajouter une variable aléatoire pour les pièges.
 * Ajouter un bouton replay.
