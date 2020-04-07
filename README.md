@@ -22,5 +22,5 @@
 Il a été développé sur Eclispe IDE et fonctionne.
 
 Répartition des tâches
-*Visuel : Véniane 
-*Fonctionnel : Lucie 
+* Visuel : Véniane 
+* Fonctionnel : Lucie 
